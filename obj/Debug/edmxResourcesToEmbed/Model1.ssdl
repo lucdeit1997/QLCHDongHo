@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLCHDONGHOModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="QLCHDONGHOModelStoreContainer">
+    <EntitySet Name="HoaDon" EntityType="QLCHDONGHOModel.Store.HoaDon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SanPham" EntityType="QLCHDONGHOModel.Store.SanPham" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="fk_maSP" Association="QLCHDONGHOModel.Store.fk_maSP">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="maHD" />
+    </Key>
+    <Property Name="maHD" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="NgayLap" Type="date" Nullable="false" />
+    <Property Name="maSP" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="maNV" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="maKH" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="soLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="maSP" />
+    </Key>
+    <Property Name="maSP" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="tenSP" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="giaBan" Type="int" Nullable="false" />
+    <Property Name="dVT" Type="nvarchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <Association Name="fk_maSP">
+    <End Role="SanPham" Type="QLCHDONGHOModel.Store.SanPham" Multiplicity="1" />
+    <End Role="HoaDon" Type="QLCHDONGHOModel.Store.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="maSP" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="maSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

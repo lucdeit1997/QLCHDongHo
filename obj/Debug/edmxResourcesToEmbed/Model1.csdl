@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLCHDONGHOModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="QLCHDONGHOEntities3" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="HoaDons" EntityType="QLCHDONGHOModel.HoaDon" />
+    <EntitySet Name="SanPhams" EntityType="QLCHDONGHOModel.SanPham" />
+    <AssociationSet Name="fk_maSP" Association="QLCHDONGHOModel.fk_maSP">
+      <End Role="SanPham" EntitySet="SanPhams" />
+      <End Role="HoaDon" EntitySet="HoaDons" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="maHD" />
+    </Key>
+    <Property Name="maHD" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="NgayLap" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="maSP" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="maNV" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="maKH" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="soLuong" Type="Int32" />
+    <NavigationProperty Name="SanPham" Relationship="QLCHDONGHOModel.fk_maSP" FromRole="HoaDon" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="maSP" />
+    </Key>
+    <Property Name="maSP" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="tenSP" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="giaBan" Type="Int32" Nullable="false" />
+    <Property Name="dVT" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="HoaDons" Relationship="QLCHDONGHOModel.fk_maSP" FromRole="SanPham" ToRole="HoaDon" />
+  </EntityType>
+  <Association Name="fk_maSP">
+    <End Role="SanPham" Type="QLCHDONGHOModel.SanPham" Multiplicity="1" />
+    <End Role="HoaDon" Type="QLCHDONGHOModel.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="maSP" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="maSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
